@@ -1,0 +1,52 @@
+
+.chat-window > div > .panel {
+    border-radius: 5px 5px 0 0;
+  }
+  
+  
+  .msg-overlay-bubble-header__unread-count {
+      background-color: #d11124;
+      // background-color: #ffc20d;
+      border-radius: 18px;
+      border: 2px solid #fff;
+      display: inline-block;
+      line-height: 0;
+      margin: 0 8px;
+      opacity: 1;
+      padding: 0;
+      transform-origin: bottom left;
+      vertical-align: baseline;
+      width: auto;
+      animation-name: artdecoBadgeAnimationIn1,artdecoBadgeAnimationIn2;
+      animation-duration: 345ms,255ms;
+      animation-delay: 0s,345ms;
+      animation-timing-function: cubic-bezier(.4,0,1,1);
+      border: 1px solid var(--white,#fff);
+  }
+  .msg-overlay-bubble-header__unread-count.yellow {
+      background-color: #ffc20d;
+  }
+  mark {
+      font-style: italic;
+      font-weight: 700;
+  }
+  .msg-overlay-bubble-header__unread-count abbr {
+      color: #fff;
+      border: none;
+      box-sizing: border-box;
+      clip: auto;
+      cursor: default;
+      display: inline-block;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 600;
+      height: 18px;
+      line-height: 18px;
+      min-width: 18px;
+      position: relative;
+      padding: 0 4px;
+      text-align: center;
+      text-decoration: none;
+      transition: min-width .15s,height .15s;
+      vertical-align: top;
+  }

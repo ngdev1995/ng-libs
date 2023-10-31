@@ -1,0 +1,99 @@
+<ng-container *ngIf="chatService?.currentUser">
+    <ng-container *ngIf="chatService?.currentUser?.isChatEnabled">
+        <div class="outer_box" [ngStyle]="{ width: minWidh + 'px' }">
+            <div class="chatBOX">
+                <div class="chatBOXInner">
+                    <ng-template ngFor let-userChat [ngForOf]="activeUsersChat" let-i="index">
+                        <lib-ng-firechat-widget 
+                            class="loop_box col" 
+                            [userChat]="userChat"
+                            (removeActiveChat)="removeActiveChat($event)" 
+                            (updateUserToActiveParticipant)="updateUserToActiveParticipant($event)
+                        ">
+                        </lib-ng-firechat-widget>
+                    </ng-template>
+                </div>
+            </div>
+
+
+            <div class="row chat-window col-xs-5 col-md-3 all_chat_box" id="chat_window_1">
+                <div class="col-xs-12 col-md-12 d-flex boxsss">
+                    <div class="panel panel-default">
+                        <div class="panel-heading top-bar row" (click)="toggleParticipantTab = !toggleParticipantTab">
+                            <div class="col-md-8 col-xs-8">
+                                <h3 class="panel-title">
+                                    <div class="avatar_img">
+                                        <img loading="lazy" [src]="chatService?.currentUser?.photo" />
+                                        <div class="circle_box"></div>
+                                    </div>
+                                    Messages
+                                    <mark *ngIf="unreadMessageCounter" class="msg-overlay-bubble-header__unread-count"
+                                        aria-hidden="true">
+                                        <abbr title="You have {{unreadMessageCounter}} unseen messages">
+                                            {{unreadMessageCounter}}
+                                        </abbr>
+                                    </mark>
+                                </h3>
+                            </div>
+                            <div class="col-md-4 col-xs-4 chat_icons">
+                                <a href="javascript:void(0);">
+                                    <span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim">
+                                        <img loading="lazy"
+                                            [src]="toggleParticipantTab ? 'assets/img/arrow_up.svg': 'assets/img/arrow_down.svg'" />
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body msg_container_base" *ngIf="!toggleParticipantTab" [@slideInOut]>
+                            <div class="add_new_chat">
+                                <div class="add_txt">
+                                    <img loading="lazy" src="assets/img/plus.svg" /> Add new Chat
+                                </div>
+                                <div class="drop_downbox">
+                                    <img loading="lazy" src="assets/img/three_dot.svg" />
+                                </div>
+                            </div>
+
+                            <div class="all_chat">
+                                <ng-template ngFor let-contact [ngForOf]="contacts" let-i="index">
+                                    <div class="chat_boxes"
+                                        [ngClass]="{ 'd-none': contact?.last_message == '', unread: contact?.read == 0 }"
+                                        (click)="chooseParticipant(contact)">
+                                        <div class="avatar_img">
+                                            <img loading="lazy" [src]="contact?.user.photo" />
+                                            <div class="circle_box"
+                                                [ngClass]="{ inactive: contact?.user?.active_status == 0, active: contact?.user?.active_status > 0 }">
+                                            </div>
+                                        </div>
+                                        <div class="chat_name">
+                                            <h3>
+                                                {{ contact?.user.name }}
+                                                <span [innerHTML]="timeAgo(contact?.timestamp)"></span>
+                                            </h3>
+                                            <p [ngClass]="{ 'font-weight-bold': contact?.read == 0 }"
+                                                [innerHTML]="contact?.last_message"></p>
+
+                                            <mark *ngIf="contact?.unreadCount" style="position: absolute; right: 0;"
+                                                class="msg-overlay-bubble-header__unread-count yellow"
+                                                aria-hidden="true">
+                                                <abbr title="You have {{contact?.unreadCount || 0}} unseen messages">
+                                                    {{contact?.unreadCount || 0}}
+                                                </abbr>
+                                            </mark>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                                <div *ngIf="checkValidChats()" class="text-center no_messages_box">
+                                    <img loading="lazy" src="../../../../assets/img/say-no.png">
+                                    <h3 class="panel-title">You have no messages/contacts right now.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </ng-container>
+</ng-container>
